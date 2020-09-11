@@ -1,0 +1,10 @@
+.btn-flat {
+  background: #6600ff;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn-flat:hover {
+  background: #a366ff;
+  box-shadow: 3px 4px 10px -1px rgba(0, 0, 0, 0.75);
+}
