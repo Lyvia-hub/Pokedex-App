@@ -8,7 +8,6 @@ import { DetailPokemonComponent } from './detail-pokemon/detail-pokemon.componen
 import { BorderCardDirective } from './border-card.directive';
 import { PokemonTypeColorPipe } from './pokemon-type-color.pipe';
 import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
-import { EditPokemonComponent } from './edit-pokemon/edit-pokemon.component';
 
 import { PokemonsService } from './pokemons.service';
 import { SearchPokemonComponent } from './search-pokemon/search-pokemon.component';
@@ -20,7 +19,6 @@ import { LoaderPokemonComponent } from '../loader-pokemon/loader-pokemon.compone
   declarations: [
     ListPokemonComponent,
     DetailPokemonComponent,
-    EditPokemonComponent,
     SearchPokemonComponent,
     PokemonFormComponent,
     LoaderPokemonComponent,

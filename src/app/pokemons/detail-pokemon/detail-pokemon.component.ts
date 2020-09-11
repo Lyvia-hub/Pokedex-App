@@ -28,19 +28,9 @@ export class DetailPokemonComponent implements OnInit {
       .subscribe(pokemon => this.pokemon = pokemon);
   }
 
-  delete(pokemon: Pokemon): void {
-    this.pokemonsService.deletePokemon(pokemon)
-      .subscribe(_ => this.goBack());
-  }
-
   // Fonction retour à la liste des cartes des pokemons
   goBack(): void {
     this.router.navigate(['/pokemons']);
-  }
-
-  goEdit(pokemon: Pokemon): void {
-    let link = ['/pokemon/edit', pokemon.id];
-    this.router.navigate(link);
   }
 
 }
