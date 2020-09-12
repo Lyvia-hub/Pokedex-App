@@ -13,12 +13,11 @@ import { PokemonsService } from '../pokemons.service';
 export class ListPokemonComponent implements OnInit {
   public title = 'Pokedex';
   public pokemons: Pokemon[] = [];
-  listPokemons: Pokemon[] = [];
-  offset = 0;
+  offset: number;
+  pokemonId: number;
 
-  // selectedPokemon: Pokemon = new Pokemon();
+  // listPokemons: Pokemon[] = [];
   // searchText: string;
-  // id_select: number;
 
   constructor(
     private router: Router,
@@ -30,7 +29,7 @@ export class ListPokemonComponent implements OnInit {
   }
 
   getPokemons(): void {
-    this.pokemonsService.getPokemons(300, this.offset).subscribe(results => {
+    this.pokemonsService.getPokemons(151, this.offset).subscribe(results => {
       this.offset += 300;
       console.log(results);
       // tslint:disable-next-line: forin
@@ -40,6 +39,7 @@ export class ListPokemonComponent implements OnInit {
         this.pokemonsService
           .getDataFromUrl(results.results[res].url)
           .subscribe(data => {
+            // console.log(data);
             const displayedPokemon = new Pokemon();
             displayedPokemon.id = data.id;
             displayedPokemon.name = data.name;
@@ -49,11 +49,10 @@ export class ListPokemonComponent implements OnInit {
             // tslint:disable-next-line: forin
             for (const d in data.types) {
               typeList.push(data.types[d].type.name);
-
             }
             displayedPokemon.types = typeList;
             this.pokemons.push(displayedPokemon);
-            console.log(displayedPokemon);
+            // console.log(displayedPokemon);
           });
         // Sorting id (asc)
         setTimeout(() => {
@@ -67,6 +66,23 @@ export class ListPokemonComponent implements OnInit {
     });
   }
 
+  // Click on a Pokemon card to consult description
+  onselectPokemon(pokemon: Pokemon) {
+    let link = ['/pokemon', pokemon.id];
+    this.router.navigate(link);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   // getListPokemons(): void {
   //   this.pokemonsService.getPokemons(800, 0).subscribe(results => {
   //     // tslint:disable-next-line: forin
@@ -78,8 +94,6 @@ export class ListPokemonComponent implements OnInit {
   //     }
   //   });
   //}
-
-  // Permet d'accéder au détail concernant le pokémon sélectionné (-> autre composant)
 
 }
 

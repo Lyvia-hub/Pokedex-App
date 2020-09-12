@@ -5,4 +5,5 @@
 
 .card:hover {
   cursor: pointer;
+  border-color: #6600ff !important;
 }
