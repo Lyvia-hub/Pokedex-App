@@ -7,7 +7,7 @@
         </div>
 
         <div class="collection">
-          <a *ngFor="let pokemon of pokemons$ | async" (click)="gotoDetail(pokemon)" class="collection-item">
+          <a *ngFor="let pokemon of pokeApiUrl | async" (click)="gotoDetail(pokemon)" class="collection-item">
             {{ pokemon.name }}
           </a>
         </div>

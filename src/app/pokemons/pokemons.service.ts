@@ -5,12 +5,16 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { PokeAPIUrl, PokeAPIData } from './pokeAPI';
+import { queryPaginated } from './pagination';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonsService {
+  id: number;
+  isAvailable: boolean;
+  name: string;
 
   /**
    * Injection of HttpClient into the Service
@@ -29,6 +33,11 @@ export class PokemonsService {
   // Get all data from each pokemon's url
   getDataFromUrl(result: string): Observable<PokeAPIData> {
     return this.http.get<PokeAPIData>(result);
+  }
+
+  // Search and filter results
+  list(urlOrFilter?: string | object): Observable<PokeAPIUrl> {
+    return queryPaginated<PokeAPIUrl>(this.http, this.baseUrl, urlOrFilter);
   }
 
   // Get Pokemon Data by id

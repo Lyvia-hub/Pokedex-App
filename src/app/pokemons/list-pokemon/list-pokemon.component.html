@@ -5,7 +5,7 @@
     <app-search-pokemon></app-search-pokemon>
 
     <div *ngFor='let pokemon of pokemons' class="col s6 m4">
-      <div class="card horizontal" appBorderCard>
+      <div class="card horizontal" (click)=selectPokemon(pokemon) appBorderCard>
         <div class="card-image">
           <img [src]="pokemon.sprites.front_default" alt="pokemon.name">
         </div>
