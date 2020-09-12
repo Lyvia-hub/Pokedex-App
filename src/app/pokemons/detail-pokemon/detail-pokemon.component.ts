@@ -24,8 +24,8 @@ export class DetailPokemonComponent implements OnInit {
     // this.pokemons = this.pokemonsService.getPokemons();
 
     const id = +this.route.snapshot.paramMap.get('id');
-    this.pokemonsService.getPokemon(id)
-      .subscribe(pokemon => this.pokemon = pokemon);
+    // this.pokemonsService.getPokemon(id)
+    //   .subscribe(pokemon => this.pokemon = pokemon);
   }
 
   // Fonction retour à la liste des cartes des pokemons

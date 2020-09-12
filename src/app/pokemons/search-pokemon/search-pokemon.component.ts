@@ -25,14 +25,14 @@ export class SearchPokemonComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pokemons$ = this.searchTerms.pipe(
-      //attendre 300ms de pause entre chaque requête
-      debounceTime(300),
-      // ignorer la recherche en cours si c'est la même que la précédente
-      distinctUntilChanged(),
-      // on retourne la liste des résultats correspondants aux termes de la recherche après avoir passé les 2 précédents filtres
-      switchMap((term: string) => this.pokemonsService.searchPokemons(term)),
-    );
+    // this.pokemons$ = this.searchTerms.pipe(
+    //   //attendre 300ms de pause entre chaque requête
+    //   debounceTime(300),
+    //   // ignorer la recherche en cours si c'est la même que la précédente
+    //   distinctUntilChanged(),
+    //   // on retourne la liste des résultats correspondants aux termes de la recherche après avoir passé les 2 précédents filtres
+    //   switchMap((term: string) => this.pokemonsService.searchPokemons(term)),
+    // );
   }
 
   gotoDetail(pokemon: Pokemon): void {

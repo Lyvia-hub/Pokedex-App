@@ -1,97 +1,55 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Pokemon } from './pokemon';
-import { POKEMONS } from './mock-pokemons';
+import { PokeAPIUrl, PokeAPIData } from './pokeAPI';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonsService {
 
+  /**
+   * Injection of HttpClient into the Service
+   *
+   */
   constructor(private http: HttpClient) { }
 
-  private pokemonsUrl = 'api/pokemons';
+  private baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
-  // log
-  // tslint:disable-next-line: typedef
-  private log(log: string) {
-    // tslint:disable-next-line: no-console
-    console.info(log);
+
+  // Fetch Pokemons
+  getPokemons(limit: number, offset: number): Observable<PokeAPIUrl> {
+    return this.http.get<PokeAPIUrl>(`${this.baseUrl}?limit=${limit}&offset=${offset}`);
   }
 
-  // Handle Error
-  // tslint:disable-next-line: typedef
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
-
-      return of(result as T);
-    };
+  // Get all data from each pokemon's url
+  getDataFromUrl(result: string): Observable<PokeAPIData> {
+    return this.http.get<PokeAPIData>(result);
   }
 
-  // GET Pokemons
-  getPokemons(): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.pokemonsUrl).pipe(
-      tap(_ => this.log(`fetched pokemons`)),
-      catchError(this.handleError('getPokemons', []))
-    );
-  }
-  // GET Pokemon:id
-  getPokemon(id: number): Observable<Pokemon> {
-    const url = `${this.pokemonsUrl}/${id}`;
+  // Get Pokemon Data by id
+  // getPokemonFullDescription(id: number): Observable<pokeAPIData> {
+  //   return this.http.get<pokeAPIData>(`${this.baseUrl}${id}/`
+  //   );
+  // }
 
-    return this.http.get<Pokemon>(url).pipe(
-      tap(_ => this.log(`fetched pokemon id=${id}`)),
-      catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
-    );
-  }
+  // searchPokemons(term: string): Observable<PokeAPIData> {
+  //   if (!term.trim()) { // si champs de recherche vide
+  //     return of([]); // retourner un tableau vide
+  //   }
 
-  searchPokemons(term: string): Observable<Pokemon[]> {
-    if (!term.trim()) { // si champs de recherche vide
-      return of([]); // retourner un tableau vide
-    }
-
-    return this.http.get<Pokemon[]>(`${this.pokemonsUrl}/?name=${term}`).pipe(
-      tap(_ => this.log(`found pokemons matching "${term}"`)),
-      catchError(this.handleError<Pokemon[]>('searchPokemons', []))
-    );
-  }
-
-  // Delete pokemon
-  deletePokemon(pokemon: Pokemon): Observable<Pokemon> {
-    const url = `${this.pokemonsUrl}/${pokemon.id}`;
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-
-    return this.http.delete<Pokemon>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted pokemon id=${pokemon.id}`)),
-      catchError(this.handleError<Pokemon>('deletePokemon'))
-    );
-  }
-
-  // PUT update pokemons
-  updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-
-    return this.http.put(this.pokemonsUrl, pokemon, httpOptions).pipe(
-      tap(_ => this.log(`updated pokemon id=${pokemon.id}`)),
-      catchError(this.handleError<any>('updatedPokemon'))
-    );
-  }
+  //   return this.http.get<PokeAPIData>(`${this.baseUrl}/?name=${term}`);
+  // }
 
   // Retourne la liste des types des Pokémons
   getPokemonTypes(): Array<string> {
     return [
-      'Plante', 'Feu', 'Eau', 'Insecte', 'Normal', 'Electrik',
-      'Poison', 'Fée', 'Vol', 'Combat', 'Psy'
+      'grass', 'fire', 'water', 'bug', 'normal', 'electrik',
+      'poison', 'fairy', 'flying', 'ground', 'psy'
     ];
   }
 }
