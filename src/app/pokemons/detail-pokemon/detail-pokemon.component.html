@@ -1,49 +1,51 @@
-<div *ngIf="pokemon" class="row">
+<div class="row">
   <div class="col s12 m8 offset-m2">
-    <!-- Affiche le nom du pokémon -->
-    <h2 class="header center">{{ pokemon.name }}</h2>
+    <!-- Pokemon Name -->
+    <h2 class="header center">{{ selectedPokemon.name | uppercase }}</h2>
     <!-- Card -->
     <div class="card horizontal hoverable">
       <div class="card-image">
-        <img [src]="pokemon.picture"> <!-- Liaison de données [ ] -->
+        <img class="pokemon-image" src="{{ selectedPokemon.sprites }}" />
+        <img class="pokemon-image" src="{{ selectedPokemon.sprites }}" />
       </div>
       <div class="card-stacked">
         <div class="card-content">
           <table class="bordered striped">
             <tbody>
               <tr>
-                <td>Nom</td>
-                <td><strong>{{ pokemon.name }}</strong></td>
-              </tr>
-              <tr>
-                <td>Points de vie</td>
-                <td><strong>{{ pokemon.hp }}</strong></td>
-              </tr>
-              <tr>
-                <td>Dégâts</td>
-                <td><strong>{{ pokemon.cp }}</strong></td>
+                <td>ID</td>
+                <td><strong>#{{ selectedPokemon.id }}</strong></td>
               </tr>
               <tr>
                 <td>Types</td>
                 <td>
-                  <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }}">{{ type }}</span>
+                  <span *ngFor="let type of selectedPokemon.types"
+                    class="{{ type | pokemonTypeColor }}">{{ type }}</span>
                 </td>
               </tr>
               <tr>
-                <td>Date de création</td>
-                <td><em>{{ pokemon.created | date:"dd/MM/yyyy" }}</em></td>
+                <td>Weight</td>
+                <td><em>{{ selectedPokemon.weight }}</em></td>
+              </tr>
+              <tr>
+                <td>Height</td>
+                <td><em>{{ selectedPokemon.height }}</em></td>
+              </tr>
+              <tr>
+                <td>Evolves to</td>
+                <td>...</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="card-action">
-          <a (click)="goBack()" class="waves-effect waves-light btn">Retour</a>
+          <a (click)="goBack()" class="waves-effect waves-light btn">Back</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 <!-- <h4 *ngIf="!pokemon" class="center">Aucun pokémon à afficher !</h4> -->
-<h4 *ngIf="!pokemon" class="center">
+<h4 *ngIf="!selectedPokemon" class="center">
   <app-loader-pokemon></app-loader-pokemon>
 </h4>

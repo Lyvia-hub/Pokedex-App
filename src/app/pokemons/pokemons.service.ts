@@ -40,11 +40,23 @@ export class PokemonsService {
     return queryPaginated<PokeAPIUrl>(this.http, this.baseUrl, urlOrFilter);
   }
 
-  // Get Pokemon Data by id
-  // getPokemonFullDescription(id: number): Observable<pokeAPIData> {
-  //   return this.http.get<pokeAPIData>(`${this.baseUrl}${id}/`
-  //   );
-  // }
+  // Get selected Pokemon data via id
+  getPokemonData(id: number): Observable<PokeAPIData> {
+    console.log(this.http.get<PokeAPIData>(this.baseUrl + id + '/'));
+    return this.http.get<PokeAPIData>(this.baseUrl + id + '/');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   // searchPokemons(term: string): Observable<PokeAPIData> {
   //   if (!term.trim()) { // si champs de recherche vide
@@ -53,12 +65,4 @@ export class PokemonsService {
 
   //   return this.http.get<PokeAPIData>(`${this.baseUrl}/?name=${term}`);
   // }
-
-  // Get all pokemon types in a List
-  getPokemonTypes(): Array<string> {
-    return [
-      'grass', 'fire', 'water', 'bug', 'normal', 'electric',
-      'poison', 'fairy', 'flying', 'ground', 'psychic'
-    ];
-  }
 }
