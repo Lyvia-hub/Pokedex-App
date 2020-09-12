@@ -13,5 +13,4 @@ export class PokeAPIData {
   weight: number;
   types: object;
   sprites: object;
-
 }
