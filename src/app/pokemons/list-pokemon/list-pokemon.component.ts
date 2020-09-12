@@ -25,32 +25,30 @@ export class ListPokemonComponent implements OnInit {
     private pokemonsService: PokemonsService) { }
 
   ngOnInit(): void {
-    // Permet d'afficher tous les pokémons
     this.getPokemons();
-    this.getListPokemons();
+    // this.getListPokemons();
   }
 
   getPokemons(): void {
-    this.pokemonsService.getPokemons(20, this.offset).subscribe(results => {
-      this.offset += 20;
+    this.pokemonsService.getPokemons(300, this.offset).subscribe(results => {
+      this.offset += 300;
       console.log(results);
       // tslint:disable-next-line: forin
-      for (const i in results.results as any) {
-        console.log(results.results[i]);
-        console.log(results.results[i].url);
+      for (const res in results.results as any) {
+        // console.log(results.results[res]);
+        // console.log(results.results[res].url);
         this.pokemonsService
-          .getDataFromUrl(results.results[i].url)
-          // tslint:disable-next-line: no-shadowed-variable
-          .subscribe(results => {
+          .getDataFromUrl(results.results[res].url)
+          .subscribe(data => {
             const displayedPokemon = new Pokemon();
-            displayedPokemon.id = results.id;
-            displayedPokemon.name = results.name;
-            displayedPokemon.sprites = results.sprites;
+            displayedPokemon.id = data.id;
+            displayedPokemon.name = data.name;
+            displayedPokemon.sprites = data.sprites;
 
             const typeList: string[] = [];
             // tslint:disable-next-line: forin
-            for (const j in results.types) {
-              typeList.push(results.types[j].type.name);
+            for (const d in data.types) {
+              typeList.push(data.types[d].type.name);
 
             }
             displayedPokemon.types = typeList;
@@ -69,17 +67,17 @@ export class ListPokemonComponent implements OnInit {
     });
   }
 
-  getListPokemons(): void {
-    this.pokemonsService.getPokemons(800, 0).subscribe(results => {
-      // tslint:disable-next-line: forin
-      for (const i in results.results as any) {
-        const displayedPokemon: Pokemon = new Pokemon();
-        displayedPokemon.id = +i + 1;
-        displayedPokemon.name = results.results[i].name;
-        this.listPokemons.push(displayedPokemon);
-      }
-    });
-  }
+  // getListPokemons(): void {
+  //   this.pokemonsService.getPokemons(800, 0).subscribe(results => {
+  //     // tslint:disable-next-line: forin
+  //     for (const res in results.results as any) {
+  //       const displayedPokemon: Pokemon = new Pokemon();
+  //       displayedPokemon.id = +res + 1;
+  //       displayedPokemon.name = results.results[res].name;
+  //       this.listPokemons.push(displayedPokemon);
+  //     }
+  //   });
+  //}
 
   // Permet d'accéder au détail concernant le pokémon sélectionné (-> autre composant)
 

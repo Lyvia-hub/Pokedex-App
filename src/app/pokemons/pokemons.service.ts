@@ -45,11 +45,11 @@ export class PokemonsService {
   //   return this.http.get<PokeAPIData>(`${this.baseUrl}/?name=${term}`);
   // }
 
-  // Retourne la liste des types des Pokémons
+  // Get all pokemon types in a List
   getPokemonTypes(): Array<string> {
     return [
-      'grass', 'fire', 'water', 'bug', 'normal', 'electrik',
-      'poison', 'fairy', 'flying', 'ground', 'psy'
+      'grass', 'fire', 'water', 'bug', 'normal', 'electric',
+      'poison', 'fairy', 'flying', 'ground', 'psychic'
     ];
   }
 }

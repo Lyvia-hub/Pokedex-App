@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 /**
- * Affiche la couleur correspondant au type du pokémon (classes materialize)
- * Prend en argument le type du pokémon.
- * Exemple d'utilisation:
+ * Display color corresponding to Pokemon type (materialize classes)
+ * Params: Pokemon type
+ * Exemple :
  *    {{ pokemon.type | pokemonTypeColor }}
  */
 
@@ -37,16 +37,16 @@ export class PokemonTypeColorPipe implements PipeTransform {
       case 'poison':
         color = 'deep-purple accent-1';
         break;
-      case 'Fée':
+      case 'fairy':
         color = 'pink lighten-4';
         break;
-      case 'psy':
+      case 'psychic':
         color = 'deep-purple darken-2';
         break;
-      case 'electrik':
+      case 'electric':
         color = 'lime accent-1';
         break;
-      case 'Combat':
+      case 'ground':
         color = 'deep-orange';
         break;
       default:

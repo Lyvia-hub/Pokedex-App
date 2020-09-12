@@ -1,9 +1,8 @@
 export class PokeAPIUrl {
-  // NamedAPIRessourceList
-  count: number;
-  next: string;
-  previous: string;
-  results: Array<object>;
+  count: number; // total number of items
+  next: string; // URL of the next page
+  previous: string; // URL of the previous page
+  results: Array<object>; // data of the current page
 }
 
 export class PokeAPIData {
