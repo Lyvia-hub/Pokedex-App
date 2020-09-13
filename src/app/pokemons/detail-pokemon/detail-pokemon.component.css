@@ -18,6 +18,6 @@
   color: #6600ff;
 }
 
-/* tr:nth-child(even) {
-  background-color: #f2f2f2 !important;
-} */
+td.centered {
+  text-align: center !important;
+}

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Pokemon } from '../pokemon';
 
@@ -12,7 +12,6 @@ import { PokemonsService } from '../pokemons.service';
 })
 export class DetailPokemonComponent implements OnInit {
 
-  // Pokémon à afficher à l'utilisateur
   pokemon: Pokemon;
   selectedPokemon: Pokemon = new Pokemon();
 
@@ -28,11 +27,12 @@ export class DetailPokemonComponent implements OnInit {
     this.getPokemonSpecies(this.selectedPokemon);
   }
 
-  // Get data about selected pokemon
-  getSelectedPokemon(pokemon: Pokemon) {
+  /**
+   * Display data about selected Pokemon
+   */
+  getSelectedPokemon(pokemon: Pokemon): void {
     this.pokemonsService.getPokemonData(pokemon.id)
       .subscribe(data => {
-        console.log(data);
         this.selectedPokemon.id = data.id;
         this.selectedPokemon.name = data.name;
         this.selectedPokemon.height = data.height;
@@ -51,72 +51,65 @@ export class DetailPokemonComponent implements OnInit {
       });
   }
 
-  // Get Species data as evolution chain url
-  getPokemonSpecies(pokemon: Pokemon) {
+  /**
+   * Get Species data evolution chain url
+   * access via species object {name : '', url: '' }
+   */
+  getPokemonSpecies(pokemon: Pokemon): void {
     this.pokemonsService.getPokemonSpeciesData(pokemon.id)
       .subscribe(data => {
-        this.selectedPokemon.evolution_chain = data.evolution_chain;
-        this.selectedPokemon.flavour_text_entries = data.flavour_text_entries;
+        this.selectedPokemon.habitat = data.habitat['name'];
+        if (data.evolves_from_species !== null) {
+          this.selectedPokemon.evolves_from_species = data.evolves_from_species['name'];
+        } else {
+          // this.selectedPokemon.evolves_from_species = null;
+          this.selectedPokemon.evolves_from_species = 'X';
+        }
+
+        this.selectedPokemon.flavor_text_entries = data.flavor_text_entries[0]['flavor_text'];
 
         const evolutionUrl = data.evolution_chain['url'];
         const pokemonName = data.name;
 
-        // console.log('funFact');
-        // const pokemonFacts = [];
-        // // tslint:disable-next-line: forin
-        // for (const fact in data.flavour_text_entries) {
-        //   pokemonFacts.push(data.flavour_text_entries.flavour_text;
-        //   console.log(fact);
-        // }
-        // console.log(pokemonFacts);
-        // // this.selectedPokemon.types = pokemonTypes;
-
-        const pokemonHabitat = data.habitat['name'];
-        this.selectedPokemon.habitat = pokemonHabitat;
-
-        console.log('species data');
-        console.log(data);
-        console.log(pokemonName);
-
+        /**
+         * Call getPokemonEvolution function with
+         * @param pokemonName
+         * @param evolutionUrl
+         * as arguments
+         */
         this.getPokemonEvolution(pokemonName, evolutionUrl);
       });
   }
 
-  // Get different Pokemon evolution forms
+  /**
+   * Get different Pokemon evolution forms with
+   * @param pokName
+   * @param url
+   * as arguments. Both osf them obtain from getPokemonSpecies function
+   */
   getPokemonEvolution(pokName: string, url: string) {
     this.pokemonsService.getPokemonNextEvolution(url)
       .subscribe(data => {
 
-        console.log('Evolution data');
-        console.log(data);
-
-        const pokemonEvolForms = [];
-        const evolutionChain = this.loopEvo(data);
-        console.log(evolutionChain);
-
-        console.log('get each name of evolution chain in an array :');
-        // tslint:disable-next-line: forin
-        for (let i in evolutionChain) {
-          pokemonEvolForms.push(evolutionChain[i].speciesName);
-        }
-        console.log(pokemonEvolForms);
+        /**
+         * Get an array of the different evolution species (name)
+         */
+        const pokemonEvolForms = this.loopEvo(data);
 
         for (let i = 0; i < pokemonEvolForms.length; i++) {
-          console.log(pokemonEvolForms[i]);
           if (pokName === pokemonEvolForms[i]) {
-            console.log('match en position ' + [i]);
             this.selectedPokemon.evolutionName = pokemonEvolForms[i + 1];
-            console.log("Forme évoluée : " + this.selectedPokemon.evolutionName);
             // if (pokemonEvolForms[i + 1] === undefined) {
             //   this.selectedPokemon.evolutionName = 'Last evolution form';
             // }
-            console.log("Forme évoluée : " + this.selectedPokemon.evolutionName);
           }
         }
       });
   }
 
-  // Get an object Array of chain Evolution from data.chain
+  /**
+   * Get an Array of the chain Evolution from data.chain (name)
+   */
   loopEvo(data: any): any {
     let pokemonEvols = [];
     let evoData = data.chain;
@@ -125,13 +118,11 @@ export class DetailPokemonComponent implements OnInit {
       // Get number of evolutions
       const numberOfEvolutions = evoData['evolves_to'].length;
 
-      pokemonEvols.push({ speciesName: evoData['species'].name });
+      pokemonEvols.push(evoData['species'].name);
 
       if (numberOfEvolutions > 1) {
         for (let i = 1; i < numberOfEvolutions; i++) {
-          pokemonEvols.push({
-            speciesName: evoData['evolves_to'][i]['species'].name
-          });
+          pokemonEvols.push(evoData['evolves_to'][i]['species'].name);
         }
       }
 
@@ -150,9 +141,9 @@ export class DetailPokemonComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  // (click) = "onselectEvoForm(selectedPokemon)"
-
-  // Redirect to List-pokemon view
+  /**
+   * Redirect to List-pokemon view
+   */
   goBack(): void {
     this.router.navigate(['/pokemons']);
   }

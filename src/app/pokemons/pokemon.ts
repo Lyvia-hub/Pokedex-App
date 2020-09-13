@@ -12,6 +12,7 @@ export class Pokemon {
   evolutionName: string;
   back_default: string;
   front_default: string;
-  flavour_text_entries: Array<object>;
+  flavor_text_entries: Array<object>;
   habitat: string;
+  evolves_from_species: string;
 }

@@ -40,10 +40,21 @@
                 <td><em>{{ selectedPokemon.flavour_text_entries }}</em></td>
               </tr> -->
               <tr>
+                <td>Evolves from</td>
+                <td class="centered">
+                  {{ selectedPokemon.evolves_from_species | uppercase }}
+                </td>
+              <tr>
                 <td>Evolves to</td>
                 <td class="centered">
                   <a class="evolution" (click)="onselectEvoForm(selectedPokemon)"
                     routerLink="/pokemon/:id">{{ selectedPokemon.evolutionName | uppercase }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Infos</td>
+                <td class="centered">
+                  {{ selectedPokemon.flavor_text_entries }}
                 </td>
               </tr>
             </tbody>

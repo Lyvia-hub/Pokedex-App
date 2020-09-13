@@ -16,11 +16,12 @@ export class ListPokemonComponent implements OnInit {
   offset: number;
   pokemonId: number;
 
-  // Pagination Setup
+  /**
+   * Pagination Setup
+   */
+
   p = 1;
   totalItems: number;
-
-  // listPokemons: Pokemon[] = [];
   // searchText: string;
 
   constructor(
@@ -29,23 +30,26 @@ export class ListPokemonComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPokemons();
-    // this.getListPokemons();
   }
 
+  /**
+   * Get 200 pokemons amoung results from pokeAPI
+   */
   getPokemons(): void {
     this.pokemonsService.getPokemons(200, this.offset)
       .subscribe(results => {
+
+        // Pagination attribute
         this.totalItems = results.count;
-        this.offset += 300;
-        console.log(results);
-        console.log(results.count);
+
+        this.offset += 50;
+
         // tslint:disable-next-line: forin
         for (const res in results.results as any) {
-          //console.log(results.results[res]);
-          // console.log(results.results[res].url);
           this.pokemonsService
             .getDataFromUrl(results.results[res].url)
             .subscribe(data => {
+              // get id / name / sprites / types to display
               const displayedPokemon = new Pokemon();
               displayedPokemon.id = data.id;
               displayedPokemon.name = data.name;
@@ -71,34 +75,13 @@ export class ListPokemonComponent implements OnInit {
       });
   }
 
-  // Click on a Pokemon card to consult its description
-  onselectPokemon(pokemon: Pokemon) {
-    let link = ['/pokemon', pokemon.id];
+  /**
+   * Access to pokemon description
+   */
+  onselectPokemon(pokemon: Pokemon): void {
+    const link = ['/pokemon', pokemon.id];
     this.router.navigate(link);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-  // getListPokemons(): void {
-  //   this.pokemonsService.getPokemons(800, 0).subscribe(results => {
-  //     // tslint:disable-next-line: forin
-  //     for (const res in results.results as any) {
-  //       const displayedPokemon: Pokemon = new Pokemon();
-  //       displayedPokemon.id = +res + 1;
-  //       displayedPokemon.name = results.results[res].name;
-  //       this.listPokemons.push(displayedPokemon);
-  //     }
-  //   });
-  //}
 
 }
 

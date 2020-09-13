@@ -1,6 +1,6 @@
-<div class=" card center title">{{ title | uppercase }}</div>
 <div class="container">
   <div class="row">
+    <div class=" card center title">{{ title | uppercase }}</div>
 
     <!-- Pipe for pagination -->
     <div *ngFor="let pokemon of pokemons |paginate: { itemsPerPage: 50, currentPage: p}" class="col s6 m4">
