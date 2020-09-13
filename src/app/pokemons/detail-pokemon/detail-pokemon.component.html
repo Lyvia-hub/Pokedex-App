@@ -5,8 +5,8 @@
     <!-- Card -->
     <div class="card horizontal hoverable">
       <div class="card-image">
-        <img class="pokemon-image" src="{{ selectedPokemon.sprites }}" />
-        <img class="pokemon-image" src="{{ selectedPokemon.sprites }}" />
+        <img class="pokemon-image" src="{{ selectedPokemon.sprites['front_default'] }}" />
+        <img class="pokemon-image" src="{{ selectedPokemon.sprites['back_default'] }}" />
       </div>
       <div class="card-stacked">
         <div class="card-content">
@@ -31,13 +31,19 @@
                 <td>Height</td>
                 <td><em>{{ selectedPokemon.height }}</em></td>
               </tr>
-              <tr *ngIf="selectedPokemon">
-                <td>Evolves to</td>
-                <td>{{ selectedPokemon.evolutionName | uppercase }}</td>
+              <tr>
+                <td>Habitat</td>
+                <td><em>{{ selectedPokemon.habitat | uppercase}}</em></td>
               </tr>
-              <tr *ngIf="!selectedPokemon">
+              <!-- <tr>
+                <td>Fun Fact</td>
+                <td><em>{{ selectedPokemon.flavour_text_entries }}</em></td>
+              </tr> -->
+              <tr>
                 <td>Evolves to</td>
-                <td>Most advanced evolution </td>
+                <td>{{ selectedPokemon.evolutionName | uppercase }}
+                  <a routerLink="/pokemon/:id"></a>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -65,7 +65,7 @@ export class ListPokemonComponent implements OnInit {
     });
   }
 
-  // Click on a Pokemon card to consult description
+  // Click on a Pokemon card to consult its description
   onselectPokemon(pokemon: Pokemon) {
     let link = ['/pokemon', pokemon.id];
     this.router.navigate(link);

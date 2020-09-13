@@ -46,6 +46,8 @@ export class DetailPokemonComponent implements OnInit {
         this.selectedPokemon.types = pokemonTypes;
 
         this.selectedPokemon.sprites = data.sprites;
+        this.selectedPokemon.sprites['back_default'] = data.sprites['back_default'];
+        this.selectedPokemon.sprites['front_default'] = data.sprites['front_default'];
       });
   }
 
@@ -54,22 +56,39 @@ export class DetailPokemonComponent implements OnInit {
     this.pokemonsService.getPokomonSpeciesData(pokemon.id)
       .subscribe(data => {
         this.selectedPokemon.evolution_chain = data.evolution_chain;
+        this.selectedPokemon.flavour_text_entries = data.flavour_text_entries;
 
         const evolutionUrl = data.evolution_chain['url'];
         const pokemonName = data.name;
+
+        // console.log('funFact');
+        // const pokemonFacts = [];
+        // // tslint:disable-next-line: forin
+        // for (const fact in data.flavour_text_entries) {
+        //   pokemonFacts.push(data.flavour_text_entries.flavour_text;
+        //   console.log(fact);
+        // }
+        // console.log(pokemonFacts);
+        // // this.selectedPokemon.types = pokemonTypes;
+
+        const pokemonHabitat = data.habitat['name'];
+        this.selectedPokemon.habitat = pokemonHabitat;
 
         console.log('species data');
         console.log(data);
         console.log(pokemonName);
 
-        this.getPokomonEvolution(pokemonName, evolutionUrl);
+        this.getPokemonEvolution(pokemonName, evolutionUrl);
       });
   }
 
   // Get different Pokemon evolution forms
-  getPokomonEvolution(pokName: string, url: string) {
+  getPokemonEvolution(pokName: string, url: string) {
     this.pokemonsService.getPokomonNextEvolution(url)
       .subscribe(data => {
+
+        console.log('Evolution data');
+        console.log(data);
 
         const pokemonEvolForms = [];
         const evolutionChain = this.loopEvo(data);
@@ -88,18 +107,13 @@ export class DetailPokemonComponent implements OnInit {
             console.log('match en position ' + [i]);
             this.selectedPokemon.evolutionName = pokemonEvolForms[i + 1];
             console.log("Forme évoluée : " + this.selectedPokemon.evolutionName);
-            if (pokemonEvolForms[i + 1] === undefined) {
-              this.selectedPokemon.evolutionName = 'Last evolution form';
-            }
+            // if (pokemonEvolForms[i + 1] === undefined) {
+            //   this.selectedPokemon.evolutionName = 'Last evolution form';
+            // }
             console.log("Forme évoluée : " + this.selectedPokemon.evolutionName);
           }
         }
       });
-  }
-
-  // Redirect to List-pokemon view
-  goBack(): void {
-    this.router.navigate(['/pokemons']);
   }
 
   // Get an object Array of chain Evolution from data.chain
@@ -127,4 +141,21 @@ export class DetailPokemonComponent implements OnInit {
 
     return pokemonEvols;
   }
+
+  // Click on evolved form to consult its description
+  onselectEvoForm(pokemon: Pokemon) {
+    console.log('petit click pour tester');
+    let link = ['/pokemon', pokemon.id + 1];
+    console.log(link);
+    this.router.navigate(link);
+  }
+
+  // (click) = "onselectEvoForm(selectedPokemon)"
+
+  // Redirect to List-pokemon view
+  goBack(): void {
+    this.router.navigate(['/pokemons']);
+  }
+
+
 }
