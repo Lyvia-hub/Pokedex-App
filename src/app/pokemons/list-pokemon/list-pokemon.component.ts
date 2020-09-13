@@ -16,6 +16,10 @@ export class ListPokemonComponent implements OnInit {
   offset: number;
   pokemonId: number;
 
+  // Pagination Setup
+  p = 1;
+  totalItems: number;
+
   // listPokemons: Pokemon[] = [];
   // searchText: string;
 
@@ -29,40 +33,42 @@ export class ListPokemonComponent implements OnInit {
   }
 
   getPokemons(): void {
-    this.pokemonsService.getPokemons(151, this.offset).subscribe(results => {
-      this.offset += 300;
-      // console.log(results);
-      // tslint:disable-next-line: forin
-      for (const res in results.results as any) {
-        // console.log(results.results[res]);
-        // console.log(results.results[res].url);
-        this.pokemonsService
-          .getDataFromUrl(results.results[res].url)
-          .subscribe(data => {
-            const displayedPokemon = new Pokemon();
-            displayedPokemon.id = data.id;
-            displayedPokemon.name = data.name;
-            displayedPokemon.sprites = data.sprites;
+    this.pokemonsService.getPokemons(200, this.offset)
+      .subscribe(results => {
+        this.totalItems = results.count;
+        this.offset += 300;
+        console.log(results);
+        console.log(results.count);
+        // tslint:disable-next-line: forin
+        for (const res in results.results as any) {
+          //console.log(results.results[res]);
+          // console.log(results.results[res].url);
+          this.pokemonsService
+            .getDataFromUrl(results.results[res].url)
+            .subscribe(data => {
+              const displayedPokemon = new Pokemon();
+              displayedPokemon.id = data.id;
+              displayedPokemon.name = data.name;
+              displayedPokemon.sprites = data.sprites;
 
-            const typeList: string[] = [];
-            // tslint:disable-next-line: forin
-            for (const d in data.types) {
-              typeList.push(data.types[d].type.name);
-            }
-            displayedPokemon.types = typeList;
-            this.pokemons.push(displayedPokemon);
-            // console.log(displayedPokemon);
-          });
-        // Sorting id (asc)
-        setTimeout(() => {
-          this.pokemons.sort((a, b) => {
-            if (a.id < b.id) return -1;
-            if (a.id > b.id) return 1;
-            return 0;
-          });
-        }, 1000);
-      }
-    });
+              const typeList: string[] = [];
+              // tslint:disable-next-line: forin
+              for (const d in data.types) {
+                typeList.push(data.types[d].type.name);
+              }
+              displayedPokemon.types = typeList;
+              this.pokemons.push(displayedPokemon);
+            });
+          // Sorting id (asc)
+          setTimeout(() => {
+            this.pokemons.sort((a, b) => {
+              if (a.id < b.id) return -1;
+              if (a.id > b.id) return 1;
+              return 0;
+            });
+          }, 1000);
+        }
+      });
   }
 
   // Click on a Pokemon card to consult its description

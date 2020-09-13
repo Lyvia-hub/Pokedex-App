@@ -7,3 +7,8 @@
   cursor: pointer;
   border-color: #6600ff !important;
 }
+
+pagination-controls {
+  text-align: center;
+  margin: 20px;
+}
