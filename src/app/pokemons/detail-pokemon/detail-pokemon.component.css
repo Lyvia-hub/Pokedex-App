@@ -1,7 +1,23 @@
-.card-action a:hover {
+.header {
+  font-family: 'Fredoka One',
+    cursive;
+  border-radius: 5px;
+}
+
+.card-action a:hover,
+.evolution {
   cursor: pointer;
 }
 
 .card-action a {
   margin-right: 5px;
 }
+
+.evolution:hover {
+  font-weight: bold;
+  color: #6600ff;
+}
+
+/* tr:nth-child(even) {
+  background-color: #f2f2f2 !important;
+} */

@@ -1,6 +1,9 @@
 .title {
   margin: 50px;
   font-size: 3rem;
+  font-family: 'Fredoka One',
+    cursive;
+  border-radius: 4px;
 }
 
 .card:hover {

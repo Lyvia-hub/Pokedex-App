@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12 m8 offset-m2">
     <!-- Pokemon Name -->
-    <h2 class="header center">{{ selectedPokemon.name | uppercase }}</h2>
+    <h2 class=" card header center">{{ selectedPokemon.name | uppercase }}</h2>
     <!-- Card -->
     <div class="card horizontal hoverable">
       <div class="card-image">
@@ -14,26 +14,26 @@
             <tbody>
               <tr>
                 <td>ID</td>
-                <td><strong>#{{ selectedPokemon.id }}</strong></td>
+                <td class="centered"><strong>#{{ selectedPokemon.id }}</strong></td>
               </tr>
               <tr>
                 <td>Types</td>
-                <td>
+                <td class="centered">
                   <span *ngFor="let type of selectedPokemon.types"
                     class="{{ type | pokemonTypeColor }}">{{ type | uppercase }}</span>
                 </td>
               </tr>
               <tr>
                 <td>Weight</td>
-                <td><em>{{ selectedPokemon.weight }}</em></td>
+                <td class="centered"><em>{{ selectedPokemon.weight }}</em></td>
               </tr>
               <tr>
                 <td>Height</td>
-                <td><em>{{ selectedPokemon.height }}</em></td>
+                <td class="centered"><em>{{ selectedPokemon.height }}</em></td>
               </tr>
               <tr>
                 <td>Habitat</td>
-                <td><em>{{ selectedPokemon.habitat | uppercase}}</em></td>
+                <td class="centered"><em>{{ selectedPokemon.habitat | uppercase}}</em></td>
               </tr>
               <!-- <tr>
                 <td>Fun Fact</td>
@@ -41,15 +41,16 @@
               </tr> -->
               <tr>
                 <td>Evolves to</td>
-                <td>{{ selectedPokemon.evolutionName | uppercase }}
-                  <a routerLink="/pokemon/:id"></a>
+                <td class="centered">
+                  <a class="evolution" (click)="onselectEvoForm(selectedPokemon)"
+                    routerLink="/pokemon/:id">{{ selectedPokemon.evolutionName | uppercase }}</a>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="card-action">
-          <a (click)="goBack()" class="waves-effect waves-light btn center">Back</a>
+          <a (click)="goBack()" class="waves-effect deep-purple accent-3 btn">Back</a>
         </div>
       </div>
     </div>
