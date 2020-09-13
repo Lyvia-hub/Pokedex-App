@@ -1,5 +1,3 @@
-import { Chain } from '@angular/compiler';
-
 export class Pokemon {
   id: number;
   name: string;

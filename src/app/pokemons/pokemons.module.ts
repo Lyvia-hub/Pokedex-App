@@ -12,7 +12,6 @@ import { BorderCardDirective } from './border-card.directive';
 import { PokemonTypeColorPipe } from './pokemon-type-color.pipe';
 
 import { PokemonsService } from './pokemons.service';
-import { SearchPokemonComponent } from './search-pokemon/search-pokemon.component';
 import { LoaderPokemonComponent } from '../loader-pokemon/loader-pokemon.component';
 
 
@@ -22,7 +21,6 @@ import { LoaderPokemonComponent } from '../loader-pokemon/loader-pokemon.compone
   declarations: [
     ListPokemonComponent,
     DetailPokemonComponent,
-    SearchPokemonComponent,
     LoaderPokemonComponent,
     BorderCardDirective,
     PokemonTypeColorPipe

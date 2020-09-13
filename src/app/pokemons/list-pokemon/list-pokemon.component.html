@@ -2,8 +2,7 @@
 <div class="container">
   <div class="row">
 
-    <app-search-pokemon></app-search-pokemon>
-
+    <!-- Pipe for pagination -->
     <div *ngFor="let pokemon of pokemons |paginate: { itemsPerPage: 50, currentPage: p}" class="col s6 m4">
       <div class="card horizontal" (click)=onselectPokemon(pokemon) appBorderCard>
         <div class="card-image">
@@ -13,7 +12,6 @@
           <div class="card-content">
             <p><strong>#{{ pokemon.id }}</strong></p>
             <p>{{ pokemon.name | uppercase }}</p>
-            <!-- <span *ngFor='let type of pokemon.types' class='{{ type | pokemonTypeColor }}'>{{ pokemon.types }}</span> -->
             <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }}">{{ type }}</span>
           </div>
         </div>

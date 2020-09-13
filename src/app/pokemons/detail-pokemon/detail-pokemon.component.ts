@@ -53,7 +53,7 @@ export class DetailPokemonComponent implements OnInit {
 
   // Get Species data as evolution chain url
   getPokemonSpecies(pokemon: Pokemon) {
-    this.pokemonsService.getPokomonSpeciesData(pokemon.id)
+    this.pokemonsService.getPokemonSpeciesData(pokemon.id)
       .subscribe(data => {
         this.selectedPokemon.evolution_chain = data.evolution_chain;
         this.selectedPokemon.flavour_text_entries = data.flavour_text_entries;
@@ -84,7 +84,7 @@ export class DetailPokemonComponent implements OnInit {
 
   // Get different Pokemon evolution forms
   getPokemonEvolution(pokName: string, url: string) {
-    this.pokemonsService.getPokomonNextEvolution(url)
+    this.pokemonsService.getPokemonNextEvolution(url)
       .subscribe(data => {
 
         console.log('Evolution data');
