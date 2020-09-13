@@ -23,6 +23,7 @@ export class PokemonsService {
   constructor(private http: HttpClient) { }
 
   private baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  private speciesUrl = 'https://pokeapi.co/api/v2/pokemon-species/';
 
 
   // Fetch Pokemons
@@ -30,20 +31,31 @@ export class PokemonsService {
     return this.http.get<PokeAPIUrl>(`${this.baseUrl}?limit=${limit}&offset=${offset}`);
   }
 
-  // Get all data from each pokemon's url
+  // Get all data of each pokemon's url
   getDataFromUrl(result: string): Observable<PokeAPIData> {
     return this.http.get<PokeAPIData>(result);
   }
 
+  // Get Pokemon data via id
+  getPokemonData(id: number): Observable<PokeAPIData> {
+    return this.http.get<PokeAPIData>(this.baseUrl + id + '/');
+  }
+
+  // Get species information
+  getPokomonSpeciesData(id: number): Observable<PokeAPIData> {
+    return this.http.get<PokeAPIData>(this.speciesUrl + id + '/');
+  }
+
+  // Get Chain evolution
+  getPokomonNextEvolution(url: string): Observable<PokeAPIData> {
+    return this.http.get<PokeAPIData>(url);
+  }
+
+
+
   // Search and filter results
   list(urlOrFilter?: string | object): Observable<PokeAPIUrl> {
     return queryPaginated<PokeAPIUrl>(this.http, this.baseUrl, urlOrFilter);
-  }
-
-  // Get selected Pokemon data via id
-  getPokemonData(id: number): Observable<PokeAPIData> {
-    console.log(this.http.get<PokeAPIData>(this.baseUrl + id + '/'));
-    return this.http.get<PokeAPIData>(this.baseUrl + id + '/');
   }
 
 

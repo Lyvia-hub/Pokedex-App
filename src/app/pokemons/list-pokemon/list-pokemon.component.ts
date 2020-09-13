@@ -31,7 +31,7 @@ export class ListPokemonComponent implements OnInit {
   getPokemons(): void {
     this.pokemonsService.getPokemons(151, this.offset).subscribe(results => {
       this.offset += 300;
-      console.log(results);
+      // console.log(results);
       // tslint:disable-next-line: forin
       for (const res in results.results as any) {
         // console.log(results.results[res]);
@@ -39,7 +39,6 @@ export class ListPokemonComponent implements OnInit {
         this.pokemonsService
           .getDataFromUrl(results.results[res].url)
           .subscribe(data => {
-            // console.log(data);
             const displayedPokemon = new Pokemon();
             displayedPokemon.id = data.id;
             displayedPokemon.name = data.name;

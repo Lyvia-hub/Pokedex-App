@@ -13,4 +13,9 @@ export class PokeAPIData {
   weight: number;
   types: object;
   sprites: object;
+  species: object;
+  chain: object;
+  evolution_chain: object;
+  evolvesTo: Array<object>;
+  evolutionName: string;
 }

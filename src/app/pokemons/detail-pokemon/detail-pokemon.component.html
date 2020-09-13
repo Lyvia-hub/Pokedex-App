@@ -20,7 +20,7 @@
                 <td>Types</td>
                 <td>
                   <span *ngFor="let type of selectedPokemon.types"
-                    class="{{ type | pokemonTypeColor }}">{{ type }}</span>
+                    class="{{ type | pokemonTypeColor }}">{{ type | uppercase }}</span>
                 </td>
               </tr>
               <tr>
@@ -31,15 +31,19 @@
                 <td>Height</td>
                 <td><em>{{ selectedPokemon.height }}</em></td>
               </tr>
-              <tr>
+              <tr *ngIf="selectedPokemon">
                 <td>Evolves to</td>
-                <td>...</td>
+                <td>{{ selectedPokemon.evolutionName | uppercase }}</td>
+              </tr>
+              <tr *ngIf="!selectedPokemon">
+                <td>Evolves to</td>
+                <td>Most advanced evolution </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="card-action">
-          <a (click)="goBack()" class="waves-effect waves-light btn">Back</a>
+          <a (click)="goBack()" class="waves-effect waves-light btn center">Back</a>
         </div>
       </div>
     </div>
