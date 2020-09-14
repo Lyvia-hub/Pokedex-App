@@ -1,10 +1,22 @@
-# PokemonApp
+# PokedexApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Technical environment
+
+Angular 10
+Materialize – css
+Api pokeapi
+
+## Description
+
+pokedex-app est une application qui permet de lister 200 Pokémons. Ils sont affichés 50 par page et il est possible de tous les voir en utilisant l’index de pagination situé en bas de page.
+
+L’utilisateur peut obtenir plus d’informations en cliquant sur un Pokémon. Il accède ainsi à une fiche de description qui apporte quelques données tels que l’habitat, poids, taille, la prochaine forme d’évolution…
 
 ## Code scaffolding
 
