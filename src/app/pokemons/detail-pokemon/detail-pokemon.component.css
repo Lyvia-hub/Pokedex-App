@@ -21,3 +21,7 @@
 td.centered {
   text-align: center !important;
 }
+
+tr:nth-child(odd) {
+  background-color: #d1c4e9 !important;
+}
