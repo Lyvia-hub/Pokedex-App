@@ -4,7 +4,7 @@
 
     <!-- Pipe for pagination -->
     <div *ngFor="let pokemon of pokemons |paginate: { itemsPerPage: 50, currentPage: p}" class="col s6 m4">
-      <div class="card horizontal" (click)=onselectPokemon(pokemon) appBorderCard>
+      <div class="card horizontal" [routerLink]="['/pokemon', pokemon.id]">
         <div class="card-image">
           <img [src]="pokemon.sprites.front_default" alt="pokemon.name">
         </div>
@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
 

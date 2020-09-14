@@ -8,13 +8,11 @@ import { PokemonRoutingModule } from './pokemon-routing.module';
 
 import { ListPokemonComponent } from './list-pokemon/list-pokemon.component';
 import { DetailPokemonComponent } from './detail-pokemon/detail-pokemon.component';
-import { BorderCardDirective } from './border-card.directive';
+
 import { PokemonTypeColorPipe } from './pokemon-type-color.pipe';
 
 import { PokemonsService } from './pokemons.service';
 import { LoaderPokemonComponent } from '../loader-pokemon/loader-pokemon.component';
-
-
 
 
 @NgModule({
@@ -22,7 +20,6 @@ import { LoaderPokemonComponent } from '../loader-pokemon/loader-pokemon.compone
     ListPokemonComponent,
     DetailPokemonComponent,
     LoaderPokemonComponent,
-    BorderCardDirective,
     PokemonTypeColorPipe
   ],
   imports: [

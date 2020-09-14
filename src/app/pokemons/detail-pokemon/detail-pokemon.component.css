@@ -4,6 +4,10 @@
   border-radius: 5px;
 }
 
+.card-image {
+  margin: auto 0;
+}
+
 .card-action a:hover,
 .evolution {
   cursor: pointer;
@@ -23,5 +27,5 @@ td.centered {
 }
 
 tr:nth-child(odd) {
-  background-color: #d1c4e9 !important;
+  background-color: #e8eaf6 !important;
 }

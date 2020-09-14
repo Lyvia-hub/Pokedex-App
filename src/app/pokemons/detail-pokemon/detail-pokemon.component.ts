@@ -29,31 +29,12 @@ export class DetailPokemonComponent implements OnInit {
     this.getSelectedPokemon(this.selectedPokemon);
     this.getPokemonSpecies(this.selectedPokemon);
 
-    this.evolvedPokemon.id = this.route.snapshot.params['id'];
     this.route.params
       .subscribe((params: Params) => {
         this.evolvedPokemon.id = params['id'];
         this.getSelectedPokemon(this.evolvedPokemon);
         this.getPokemonSpecies(this.evolvedPokemon);
       });
-
-
-
-
-
-    // this.getSelectedPokemon(this.selectedPokemon);
-    // this.getPokemonSpecies(this.selectedPokemon);
-
-    // console.log('this.evolvedPokemon.id');
-    // console.log(this.evolvedPokemon.id);
-
-    // this.evolvedPokemon.id = this.route.snapshot.params['id'];
-    // this.route.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //       this.evolvedPokemon.id = params['id'];
-    //     });
-
   }
 
   /**
@@ -114,9 +95,9 @@ export class DetailPokemonComponent implements OnInit {
    * Get different Pokemon evolution forms with
    * @param pokName
    * @param url
-   * as arguments. Both osf them obtain from getPokemonSpecies function
+   * as arguments. Both of them obtained from getPokemonSpecies() function
    */
-  getPokemonEvolution(pokName: string, url: string) {
+  getPokemonEvolution(pokName: string, url: string): void {
     this.pokemonsService.getPokemonNextEvolution(url)
       .subscribe(data => {
 
@@ -128,17 +109,17 @@ export class DetailPokemonComponent implements OnInit {
         for (let i = 0; i < pokemonEvolForms.length; i++) {
           if (pokName === pokemonEvolForms[i]) {
             this.selectedPokemon.evolutionName = pokemonEvolForms[i + 1];
-            // if (pokemonEvolForms[i + 1] === undefined) {
-            //   this.selectedPokemon.evolutionName = 'Last evolution form';
-            // }
           }
         }
         this.getPokemonId(this.selectedPokemon.evolutionName);
       });
   }
 
-  // Get pokemon id via its name
-  getPokemonId(name: string) {
+  /**
+   * Get pokemon id with
+   * @param name (pokemon evolved form name) from getPokemonEvolution() function
+   */
+  getPokemonId(name: string): void {
     this.pokemonsService.getPokemonByName(name)
       .subscribe(data => {
         this.evolvedPokemon.id = data.id;

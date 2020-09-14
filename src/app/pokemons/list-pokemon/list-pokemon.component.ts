@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Pokemon } from '../pokemon';
 
@@ -22,11 +21,8 @@ export class ListPokemonComponent implements OnInit {
 
   p = 1;
   totalItems: number;
-  // searchText: string;
 
-  constructor(
-    private router: Router,
-    private pokemonsService: PokemonsService) { }
+  constructor(private pokemonsService: PokemonsService) { }
 
   ngOnInit(): void {
     this.getPokemons();
@@ -49,7 +45,7 @@ export class ListPokemonComponent implements OnInit {
           this.pokemonsService
             .getDataFromUrl(results.results[res].url)
             .subscribe(data => {
-              // get id / name / sprites / types to display
+              // get id / name / sprites / types
               const displayedPokemon = new Pokemon();
               displayedPokemon.id = data.id;
               displayedPokemon.name = data.name;
@@ -73,14 +69,6 @@ export class ListPokemonComponent implements OnInit {
           }, 1000);
         }
       });
-  }
-
-  /**
-   * Access to pokemon description
-   */
-  onselectPokemon(pokemon: Pokemon): void {
-    const link = ['/pokemon', pokemon.id];
-    this.router.navigate(link);
   }
 
 }
