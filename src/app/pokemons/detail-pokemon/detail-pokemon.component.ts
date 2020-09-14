@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { Pokemon } from '../pokemon';
 
@@ -15,6 +15,8 @@ export class DetailPokemonComponent implements OnInit {
   pokemon: Pokemon;
   selectedPokemon: Pokemon = new Pokemon();
 
+  evolvedPokemon: Pokemon = new Pokemon();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -23,8 +25,16 @@ export class DetailPokemonComponent implements OnInit {
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.selectedPokemon.id = id;
+
     this.getSelectedPokemon(this.selectedPokemon);
     this.getPokemonSpecies(this.selectedPokemon);
+
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.evolvedPokemon.id = params['id'];
+        });
+
   }
 
   /**
@@ -90,6 +100,7 @@ export class DetailPokemonComponent implements OnInit {
   getPokemonEvolution(pokName: string, url: string) {
     this.pokemonsService.getPokemonNextEvolution(url)
       .subscribe(data => {
+        console.log(data);
 
         /**
          * Get an array of the different evolution species (name)
@@ -104,6 +115,19 @@ export class DetailPokemonComponent implements OnInit {
             // }
           }
         }
+        console.log(this.selectedPokemon.evolutionName);
+        this.getPokemonId(this.selectedPokemon.evolutionName);
+      });
+  }
+
+  // Get pokemon id via its name
+  getPokemonId(name: string) {
+    this.pokemonsService.getPokemonByName(name)
+      .subscribe(data => {
+        console.log('objectif ID');
+        console.log(data);
+        this.evolvedPokemon.id = data.id;
+        console.log(this.evolvedPokemon.id);
       });
   }
 
@@ -131,14 +155,6 @@ export class DetailPokemonComponent implements OnInit {
     } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
 
     return pokemonEvols;
-  }
-
-  // Click on evolved form to consult its description
-  onselectEvoForm(pokemon: Pokemon) {
-    console.log('petit click pour tester');
-    let link = ['/pokemon', pokemon.id + 1];
-    console.log(link);
-    this.router.navigate(link);
   }
 
   /**

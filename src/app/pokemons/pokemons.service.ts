@@ -23,7 +23,6 @@ export class PokemonsService {
   private baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
   private speciesUrl = 'https://pokeapi.co/api/v2/pokemon-species/';
 
-
   // Fetch Pokemons
   getPokemons(limit: number, offset: number): Observable<PokeAPIUrl> {
     return this.http.get<PokeAPIUrl>(`${this.baseUrl}?limit=${limit}&offset=${offset}`);
@@ -47,6 +46,11 @@ export class PokemonsService {
   // Get Chain evolution
   getPokemonNextEvolution(url: string): Observable<PokeAPIData> {
     return this.http.get<PokeAPIData>(url);
+  }
+
+  //
+  getPokemonByName(name: string): Observable<PokeAPIData> {
+    return this.http.get<PokeAPIData>(`${this.baseUrl}${name}/`);
   }
 
 }
