@@ -14,7 +14,6 @@ export class DetailPokemonComponent implements OnInit {
 
   pokemon: Pokemon;
   selectedPokemon: Pokemon = new Pokemon();
-
   evolvedPokemon: Pokemon = new Pokemon();
 
   constructor(
@@ -26,14 +25,31 @@ export class DetailPokemonComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.selectedPokemon.id = id;
 
-    this.getSelectedPokemon(this.selectedPokemon);
-    this.getPokemonSpecies(this.selectedPokemon);
-
+    this.evolvedPokemon.id = this.route.snapshot.params['id'];
     this.route.params
       .subscribe(
         (params: Params) => {
+          this.getSelectedPokemon(this.selectedPokemon);
+          this.getPokemonSpecies(this.selectedPokemon);
           this.evolvedPokemon.id = params['id'];
         });
+
+
+
+
+
+    // this.getSelectedPokemon(this.selectedPokemon);
+    // this.getPokemonSpecies(this.selectedPokemon);
+
+    // console.log('this.evolvedPokemon.id');
+    // console.log(this.evolvedPokemon.id);
+
+    // this.evolvedPokemon.id = this.route.snapshot.params['id'];
+    // this.route.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.evolvedPokemon.id = params['id'];
+    //     });
 
   }
 

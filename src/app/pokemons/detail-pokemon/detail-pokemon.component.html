@@ -43,8 +43,8 @@
               <tr>
                 <td>Evolves to</td>
                 <td class="centered">
-                  <a class="evolution"
-                    [routerLink]="['/pokemon', evolvedPokemon.id]">{{ selectedPokemon.evolutionName | uppercase }}</a>
+                  <a class="evolution" [routerLink]="['/pokemon', evolvedPokemon.id]">#{{ evolvedPokemon.id }} -
+                    {{ selectedPokemon.evolutionName | uppercase }}</a>
                 </td>
               </tr>
               <tr>
