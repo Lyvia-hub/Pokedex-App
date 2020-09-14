@@ -25,14 +25,17 @@ export class DetailPokemonComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.selectedPokemon.id = id;
 
+
+    this.getSelectedPokemon(this.selectedPokemon);
+    this.getPokemonSpecies(this.selectedPokemon);
+
     this.evolvedPokemon.id = this.route.snapshot.params['id'];
     this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.getSelectedPokemon(this.selectedPokemon);
-          this.getPokemonSpecies(this.selectedPokemon);
-          this.evolvedPokemon.id = params['id'];
-        });
+      .subscribe((params: Params) => {
+        this.evolvedPokemon.id = params['id'];
+        this.getSelectedPokemon(this.evolvedPokemon);
+        this.getPokemonSpecies(this.evolvedPokemon);
+      });
 
 
 
@@ -116,7 +119,6 @@ export class DetailPokemonComponent implements OnInit {
   getPokemonEvolution(pokName: string, url: string) {
     this.pokemonsService.getPokemonNextEvolution(url)
       .subscribe(data => {
-        console.log(data);
 
         /**
          * Get an array of the different evolution species (name)
@@ -131,7 +133,6 @@ export class DetailPokemonComponent implements OnInit {
             // }
           }
         }
-        console.log(this.selectedPokemon.evolutionName);
         this.getPokemonId(this.selectedPokemon.evolutionName);
       });
   }
@@ -140,10 +141,7 @@ export class DetailPokemonComponent implements OnInit {
   getPokemonId(name: string) {
     this.pokemonsService.getPokemonByName(name)
       .subscribe(data => {
-        console.log('objectif ID');
-        console.log(data);
         this.evolvedPokemon.id = data.id;
-        console.log(this.evolvedPokemon.id);
       });
   }
 
